@@ -1,0 +1,15 @@
+Payer	Provider ID	Taxgroup	Npi	Spec Code	Spec Desc	Total Claim Lines (across all claim volume)	# of [ElectroDx] claimline	% ElectroDc Lines	total_paid for ElectroDX	# of [ElectroDx that are not ICD-9 354.0] claimline	# ElectroDx Lines (not carpal tunnel) without Needle EMG	% ElectroDx Lines without  Needle EMG	Unique Patients	Patient Per day		Mod 59				Mod 25		
+													Patients	Patient Per day		Lines	Paid	% Mod 59		Lines	Paid	% Mod 25
+
+
+
+Table A:		Provider Id    ( Who Billed for Electro Diag)			# Provider billed for the same patient
+Payer	Member Id		Taxgroup	Npi	
+
+
+
+Table B:  Provider information who billed ElectroDiag codes for > 2 patient (each patient billed by 3 or more providers)				
+				
+				
+				
+Payer	Provider	Taxgroup	Npi	Patient Count

@@ -1,0 +1,551 @@
+SET job.priority 'NORMAL';
+SET pig.encrypt.keyResolver 'org.apache.pig.crypto.shims.MappingKeyResolver';
+SET pig.encrypt.key.mapping.file 'file:////opt/key/all/allkeymappingload.xml';
+SET pig.ignoreBadFiles.force true;
+
+Clms = LOAD '/refined/subsets/t1/not_restricted/*/{2013,2014}' USING PigStorage('\\u1') AS (tp_payer_key: int
+,tp_tx_key: chararray
+,ts_tx_stream_key: chararray
+,ts_tx_seq: chararray
+,ts_tx_type_code: chararray
+,ts_product_type: chararray
+,ts_received_date: chararray
+,c_claim_id: chararray
+,l_line_seq: chararray
+,m_sub_id: chararray
+,member_key: chararray
+,dep_id: chararray
+,c_dob: chararray
+,c_gender_id: chararray
+,member_dob_not_used: chararray
+,member_gender_not_used: chararray
+,cub_bill_type: chararray
+,cond_code_1: chararray
+,cond_code_2: chararray
+,cond_code_3: chararray
+,cond_code_4: chararray
+,cond_code_5: chararray
+,cond_code_6: chararray
+,cond_code_7: chararray
+,cond_code_8: chararray
+,cond_code_9: chararray
+,cond_code_10: chararray
+,cond_code_11: chararray
+,cond_code_12: chararray
+,cond_code_13: chararray
+,cond_code_14: chararray
+,cond_code_15: chararray
+,cond_code_16: chararray
+,cond_code_17: chararray
+,cond_code_18: chararray
+,cond_code_19: chararray
+,cond_code_20: chararray
+,cond_code_21: chararray
+,cond_code_22: chararray
+,cond_code_23: chararray
+,cond_code_24: chararray
+,claim_diag_1: chararray
+,claim_diag_2: chararray
+,claim_diag_3: chararray
+,claim_diag_4: chararray
+,claim_diag_5: chararray
+,claim_diag_6: chararray
+,claim_diag_7: chararray
+,claim_diag_8: chararray
+,claim_diag_9: chararray
+,claim_diag_10: chararray
+,claim_diag_11: chararray
+,claim_diag_12: chararray
+,claim_diag_13: chararray
+,claim_diag_14: chararray
+,claim_diag_15: chararray
+,claim_diag_16: chararray
+,claim_diag_17: chararray
+,claim_diag_18: chararray
+,claim_diag_19: chararray
+,claim_diag_20: chararray
+,claim_diag_21: chararray
+,claim_diag_22: chararray
+,claim_diag_23: chararray
+,claim_diag_24: chararray
+,claim_diag_25: chararray
+,admit_diag: chararray
+,line_diag_1: chararray
+,line_diag_2: chararray
+,line_diag_3: chararray
+,line_diag_4: chararray
+,p_provider_id: chararray
+,provider_key: chararray
+,subspec_id: chararray
+,t_taxgroup_id: chararray
+,taxgroup_key: chararray
+,l_dos_from: chararray
+,l_dos_to: chararray
+,pos_id: chararray
+,l_insurance_key: chararray
+,l_insurance_id: chararray
+,sub_rev_code: chararray
+,sub_cpt: chararray
+,sub_mod1: chararray
+,sub_mod2: chararray
+,sub_mod3: chararray
+,sub_mod4: chararray
+,l_sub_units: double
+,l_sub_amount: double
+,rev_code: chararray
+,cpt: chararray
+,mod1: chararray
+,mod2: chararray
+,mod3: chararray
+,mod4: chararray
+,l_units: double
+,l_amount: double
+,l_copay: double
+,l_coinsurance: double
+,l_deductible: double
+,l_cob: double
+,l_other_reduction: double
+,l_paid: double
+,l_paid_date: chararray
+,l_bypass_code: chararray
+,l_claim_type: chararray
+,l_par_yn: chararray
+,l_line_key: long
+,c_claim_key: long
+,c_claim_master_key: long
+,subspec_code: chararray
+,ssl_spec_code: chararray
+,pos: chararray
+,rr_rec_cpt: chararray
+,rr_rec_mod1: chararray
+,rr_rec_mod2: chararray
+,rr_rec_mod3: chararray
+,rr_rec_mod4: chararray
+,rr_rec_units: double
+,rr_rec_pct: double
+,c_claim_id_orig: chararray
+,l_line_seq_orig: chararray
+,c_cdf_text_1: chararray
+,c_cdf_text_2: chararray
+,c_cdf_text_3: chararray
+,l_cdf_text_1: chararray
+,l_cdf_text_2: chararray
+,l_cdf_text_3: chararray
+,l_provider_zip: chararray
+,l_provider_plus_4: chararray
+,l_tos: chararray
+,rt_rec_tx_line_key: chararray
+,tp_payer_short: chararray
+,cub_drg: chararray
+,ts_stream_key: chararray
+,c_group_id: chararray
+,c_partner_id: chararray
+,cub_dos_from: chararray
+,cub_dos_to: chararray
+,cub_admit_date: chararray
+,cub_admit_hour: chararray
+,cub_admit_minute: chararray
+,cub_admit_type: chararray
+,cub_discharge_date: chararray
+,cub_discharge_hour: chararray
+,cub_discharge_minute: chararray
+,cub_discharge_status: chararray
+,cub_sub_drg: chararray
+,cub_sub_severity: chararray
+,cub_severity: chararray
+,cub_sub_noncovered_amount: double
+,cub_claim_billed_amount: double
+,cub_claim_noncovered_amount: double
+,cub_claim_allowed_amount: double
+,cub_claim_paid_amount: double
+,cub_assignment_of_benefits: chararray
+,cub_prior_payments: double
+,cub_npi_attending: chararray
+,cub_date_adjudicated: chararray
+,cub_date_received_client: chararray
+,cub_claim_type: chararray
+,cub_par_yn: chararray
+,cub_npi: chararray
+,cub_paid_date: chararray
+,cub_product_state: chararray
+,cub_grouper_id: chararray
+,cub_grouper_key: chararray
+,cub_claim_denial_rsn_cd: chararray
+,cub_alc_days: int
+,cub_birth_weight: double
+,claim_diag_poa_1: chararray
+,claim_diag_poa_2: chararray
+,claim_diag_poa_3: chararray
+,claim_diag_poa_4: chararray
+,claim_diag_poa_5: chararray
+,claim_diag_poa_6: chararray
+,claim_diag_poa_7: chararray
+,claim_diag_poa_8: chararray
+,claim_diag_poa_9: chararray
+,claim_diag_poa_10: chararray
+,claim_diag_poa_11: chararray
+,claim_diag_poa_12: chararray
+,claim_diag_poa_13: chararray
+,claim_diag_poa_14: chararray
+,claim_diag_poa_15: chararray
+,claim_diag_poa_16: chararray
+,claim_diag_poa_17: chararray
+,claim_diag_poa_18: chararray
+,claim_diag_poa_19: chararray
+,claim_diag_poa_20: chararray
+,claim_diag_poa_21: chararray
+,claim_diag_poa_22: chararray
+,claim_diag_poa_23: chararray
+,claim_diag_poa_24: chararray
+,claim_diag_poa_25: chararray
+,admit_diag_poa: chararray
+,ecode_diag_1: chararray
+,ecode_poa_1: chararray
+,ecode_diag_2: chararray
+,ecode_poa_2: chararray
+,ecode_diag_3: chararray
+,ecode_poa_3: chararray
+,rfv_diag_1: chararray
+,rfv_poa_1: chararray
+,value_code_1: chararray
+,value_amount_1: double
+,value_code_2: chararray
+,value_amount_2: double
+,value_code_3: chararray
+,value_amount_3: double
+,value_code_4: chararray
+,value_amount_4: double
+,value_code_5: chararray
+,value_amount_5: double
+,icd_proc_1: chararray
+,icd_proc_date_1: chararray
+,icd_proc_2: chararray
+,icd_proc_date_2: chararray
+,icd_proc_3: chararray
+,icd_proc_date_3: chararray
+,icd_proc_4: chararray
+,icd_proc_date_4: chararray
+,icd_proc_5: chararray
+,icd_proc_date_5: chararray
+,icd_proc_6: chararray
+,icd_proc_date_6: chararray
+,icd_proc_7: chararray
+,icd_proc_date_7: chararray
+,icd_proc_8: chararray
+,icd_proc_date_8: chararray
+,icd_proc_9: chararray
+,icd_proc_date_9: chararray
+,icd_proc_10: chararray
+,icd_proc_date_10: chararray
+,icd_proc_11: chararray
+,icd_proc_date_11: chararray
+,icd_proc_12: chararray
+,icd_proc_date_12: chararray
+,l_void_yn: chararray
+,l_npi: chararray
+,l_edit_0_allowed_yn: chararray
+,l_zero_chg_line_seq: chararray
+,l_zero_chg_sched_amount: double
+,l_contract_id: chararray
+,l_ndc: chararray
+,l_er_visit_yn: chararray
+,rr_reason1_code: chararray
+,rr_reason1_id: chararray
+,rr_claim1_id: chararray
+,rr_line1_seq: chararray
+,rr_rec1_pct: double
+,rr_rec1_units: double
+,rr_sub_rule1_key: int
+,rr_dp1_key: int
+,rr_reason2_code: chararray
+,rr_reason2_id: chararray
+,rr_claim2_id: chararray
+,rr_line2_seq: chararray
+,rr_rec2_pct: double
+,rr_rec2_units: double
+,rr_sub_rule2_key: int
+,rr_dp2_key: int
+,rr_reason3_code: chararray
+,rr_reason3_id: chararray
+,rr_claim3_id: chararray
+,rr_line3_seq: chararray
+,rr_rec3_pct: double
+,rr_rec3_units: double
+,rr_sub_rule3_key: int
+,rr_dp3_key: int
+,rr_bundling_rec_yn: chararray
+,sub_rule_key_last: int
+,date: chararray
+,iht_saving: double
+);
+
+Column_Req = Foreach Clms GENERATE tp_payer_short
+,c_claim_master_key
+,c_claim_id
+,l_line_seq
+,ts_received_date
+,m_sub_id
+,member_key
+,dep_id
+,c_dob
+,c_gender_id
+,claim_diag_1
+,claim_diag_2
+,claim_diag_3
+,claim_diag_4
+,claim_diag_5
+,claim_diag_6
+,claim_diag_7
+,claim_diag_8
+,claim_diag_9
+,claim_diag_10
+,claim_diag_11
+,claim_diag_12
+,line_diag_1
+,line_diag_2
+,line_diag_3
+,line_diag_4
+,p_provider_id
+,provider_key
+,t_taxgroup_id
+,l_dos_from
+,l_dos_to
+,cub_discharge_date
+,cub_discharge_status
+,pos_id
+,l_insurance_key
+,l_insurance_id
+,l_sub_units
+,l_sub_amount
+,rev_code
+,cpt
+,mod1
+,mod2
+,mod3
+,mod4
+,l_units
+,l_amount
+,l_paid
+,l_claim_type
+,ssl_spec_code
+,pos
+,l_provider_zip
+,l_npi
+,date
+,iht_saving;
+
+CPT_MASTER = LOAD '/refined/mdm/cpt_master' USING PigStorage('\\u1') 
+		AS (cpt_code: chararray, short_desc: chararray, med_desc: chararray, long_desc: chararray, cpt_origin_code: chararray);
+
+Spec_mdm = LOAD '/refined/mdm/spec_lkp' USING PigStorage('\\u1') AS (spec_code: chararray, spec_desc: chararray);
+
+JOIN_SpecDesc = JOIN Column_Req by ssl_spec_code left, Spec_mdm by spec_code using 'replicated';
+
+JOIN_Final = JOIN JOIN_SpecDesc by Column_Req::cpt left, CPT_MASTER by cpt_code using 'replicated';
+
+Column_Final = FOREACH JOIN_Final GENERATE JOIN_SpecDesc::Column_Req::tp_payer_short as payer,JOIN_SpecDesc::Column_Req::c_claim_master_key as claim_master_key,JOIN_SpecDesc::Column_Req::c_claim_id as claim_id
+		,JOIN_SpecDesc::Column_Req::l_line_seq as line_seq,JOIN_SpecDesc::Column_Req::ts_received_date as ts_received_date,JOIN_SpecDesc::Column_Req::m_sub_id as sub_id
+		,JOIN_SpecDesc::Column_Req::member_key as member_key,JOIN_SpecDesc::Column_Req::dep_id as dep_id,JOIN_SpecDesc::Column_Req::c_dob as dob
+		,JOIN_SpecDesc::Column_Req::c_gender_id as gender,JOIN_SpecDesc::Column_Req::claim_diag_1 as diag_1,JOIN_SpecDesc::Column_Req::claim_diag_2 as diag_2
+		,JOIN_SpecDesc::Column_Req::claim_diag_3 as diag_3,JOIN_SpecDesc::Column_Req::claim_diag_4 as diag_4,JOIN_SpecDesc::Column_Req::claim_diag_5 as diag_5
+		,JOIN_SpecDesc::Column_Req::claim_diag_6 as diag_6,JOIN_SpecDesc::Column_Req::claim_diag_7 as diag_7,JOIN_SpecDesc::Column_Req::claim_diag_8 as diag_8
+		,JOIN_SpecDesc::Column_Req::claim_diag_9 as diag_9,JOIN_SpecDesc::Column_Req::claim_diag_10 as diag_10,JOIN_SpecDesc::Column_Req::claim_diag_11 as diag_11
+		,JOIN_SpecDesc::Column_Req::claim_diag_12 as diag_12,JOIN_SpecDesc::Column_Req::line_diag_1 as line_diag_1,JOIN_SpecDesc::Column_Req::line_diag_2 as line_diag_2
+		,JOIN_SpecDesc::Column_Req::line_diag_3 as line_diag_3,JOIN_SpecDesc::Column_Req::line_diag_4 as line_diag_4,JOIN_SpecDesc::Column_Req::p_provider_id as provider_id
+		,JOIN_SpecDesc::Column_Req::provider_key as provider_key,JOIN_SpecDesc::Column_Req::t_taxgroup_id as taxgroup,JOIN_SpecDesc::Column_Req::l_dos_from as l_dos_from
+		,JOIN_SpecDesc::Column_Req::l_dos_to as dos_to,JOIN_SpecDesc::Column_Req::pos_id as pos_id,JOIN_SpecDesc::Column_Req::l_insurance_key as insurance_key
+		,JOIN_SpecDesc::Column_Req::l_sub_units as l_sub_units,JOIN_SpecDesc::Column_Req::l_sub_amount as l_sub_amount,JOIN_SpecDesc::Column_Req::rev_code as rev_code
+		,JOIN_SpecDesc::Column_Req::cpt as cpt ,JOIN_SpecDesc::Column_Req::mod1 as mod1,JOIN_SpecDesc::Column_Req::mod2 as mod2,JOIN_SpecDesc::Column_Req::mod3 as mod3
+		,JOIN_SpecDesc::Column_Req::mod4 as mod4,JOIN_SpecDesc::Column_Req::l_units as l_units
+		,JOIN_SpecDesc::Column_Req::l_amount as l_amount,JOIN_SpecDesc::Column_Req::l_paid as l_paid,JOIN_SpecDesc::Column_Req::l_claim_type as claim_type
+		,JOIN_SpecDesc::Column_Req::ssl_spec_code as spec_code,JOIN_SpecDesc::Column_Req::pos as pos,JOIN_SpecDesc::Column_Req::l_provider_zip as provider_zip
+		,JOIN_SpecDesc::Column_Req::tp_payer_short as payer_short,JOIN_SpecDesc::Column_Req::l_npi as npi,JOIN_SpecDesc::Column_Req::iht_saving as saving
+		,JOIN_SpecDesc::Spec_mdm::spec_desc as spec_desc,CPT_MASTER::short_desc as cpt_desc;
+
+DateRange	=   Filter Column_Final  by ts_received_date MATCHES '(2013)|(2014-0[1-3].*)';
+
+Electro_Procedure =  FILTER DateRange by cpt MATCHES '(92265)|(9586[01])|(9586[3-9])|(9587[024])|(9588[5-7])|(95873)|(9590[5789])|(9591[0-3])|(9593[37])|(95999)|(G0255)';
+
+	
+With_Electro_Procedure = JOIN DateRange by (member_key,l_dos_from), Electro_Procedure by (member_key,l_dos_from) using 'replicated';
+
+
+
+With_Electro_Procedure_Column = FOREACH With_Electro_Procedure GENERATE DateRange::payer as payer,DateRange::claim_master_key as claim_master_key,DateRange::claim_id as claim_id
+			,DateRange::line_seq as line_seq,DateRange::ts_received_date as ts_received_date,DateRange::sub_id as sub_id,DateRange::member_key as member_key
+			,DateRange::dob as dob,DateRange::gender as gender,DateRange::diag_1 as claim_diag_1,DateRange::diag_2 as claim_diag_2
+			,DateRange::diag_3 as claim_diag_3,DateRange::diag_4 as claim_diag_4,DateRange::diag_5 as claim_diag_5,DateRange::diag_6 as claim_diag_6
+			,DateRange::diag_7 as claim_diag_7,DateRange::diag_8 as claim_diag_8,DateRange::diag_9 as claim_diag_9,DateRange::diag_10 as claim_diag_10
+			,DateRange::diag_11 as claim_diag_11,DateRange::diag_12 as claim_diag_12,DateRange::line_diag_1 as line_diag_1,DateRange::line_diag_2 as line_diag_2
+			,DateRange::line_diag_3 as line_diag_3,DateRange::line_diag_4 as line_diag_4,DateRange::provider_id as provider_id
+			,DateRange::taxgroup as taxgroup,DateRange::l_dos_from as dos_from ,DateRange::dos_to as dos_to,DateRange::pos_id as pos_id,DateRange::insurance_key as insurance_key
+			,DateRange::l_sub_units as l_sub_units,DateRange::l_sub_amount as l_sub_amount,DateRange::rev_code as rev_code,DateRange::cpt as cpt,DateRange::cpt_desc as cpt_desc
+			,DateRange::mod1 as mod1,DateRange::mod2 as mod2,DateRange::mod3 as mod3
+			,DateRange::mod4 as mod4,DateRange::l_units as l_units,DateRange::l_amount as l_amount,DateRange::l_paid as l_paid,DateRange::claim_type as claim_type
+			,DateRange::spec_code as spec_code,DateRange::spec_desc as spec_desc,DateRange::pos as pos,DateRange::provider_zip as provider_zip,DateRange::payer_short as payer_short,DateRange::npi as npi
+			,DateRange::saving as saving;
+
+With_Electro_Procedure_Column_Distinct = DISTINCT With_Electro_Procedure_Column;
+/*
+-- All Claim Line Detail.
+	rmf /user/sjain/analytics/ElectroPro2;
+	STORE  Pro2 into '/user/sjain/analytics/ElectroPro2' using PigStorage('|','-schema');
+	-- hadoop fs -getmerge /user/sjain/analytics/ElectroPro2  ElectroPro2.txt
+*/
+
+--Physicians with an unusually high percentage of beneficiaries for whom at least three physicians billed Medicare for electrodiagnostic tests. 
+A = Foreach With_Electro_Procedure_Column generate payer,member_key,provider_id,taxgroup,npi;
+A1 = DISTINCT A;
+B = Group A1 by (payer,member_key);
+C = Foreach B generate FLATTEN(group) as (payer,member_key),COUNT(A1.provider_id) as no_provider;
+D = Join A1 by (payer,member_key), C by (payer,member_key);
+E = Foreach D Generate A1::payer as payer, A1::member_key as patient,A1::provider_id as provider,A1::taxgroup as taxgroup, A1::npi as npi,C::no_provider as no_provider;
+F = Filter E by no_provider > 2;
+F1 = Foreach F generate payer, patient, provider,taxgroup,npi, no_provider;
+G = Group F1 by (payer,provider,taxgroup,npi);
+H = Foreach G generate FLATTEN(group) as (payer,provider,taxgroup,npi),COUNT(F1.patient) as patient_count;
+
+rmf /user/sjain/UnusualBilling;
+	STORE  F1 into '/user/sjain/UnusualBilling' using PigStorage('|','-schema');
+	-- hadoop fs -getmerge /user/sjain/UnusualBilling  UnusualBilling.txt
+
+
+
+
+/*
+--two dimension analysis Provider wise.
+
+	Pro1 = GROUP With_Electro_Procedure_Column_Distinct by (payer,provider_id,taxgroup,npi,spec_code,spec_desc);
+	Pro2 = Foreach Pro1
+			{
+				Filter_Electro =  FILTER With_Electro_Procedure_Column_Distinct by cpt MATCHES '(92265)|(9586[01])|(9586[3-9])|(9587[024])|(9588[5-7])|(95873)|(9590[5789])|(9591[0-3])|(9593[37])|(95999)|(G0255)';
+				Filter_Mod59 = FIlter Filter_Electro 
+							 by 	  ((mod1 Is Not Null AND mod1=='59')
+			 					OR (mod2 Is Not Null AND mod2=='59')
+								OR (mod3 Is Not Null AND mod3=='59')
+ 								OR (mod4 Is Not Null AND mod4=='59'));
+				Filter_Mod25 = FIlter With_Electro_Procedure_Column_Distinct 
+							 by 	  ((mod1 Is Not Null AND mod1=='25')
+			 					OR (mod2 Is Not Null AND mod2=='25')
+								OR (mod3 Is Not Null AND mod3=='25')
+ 								OR (mod4 Is Not Null AND mod4=='25'));
+				a = FOREACH With_Electro_Procedure_Column_Distinct GENERATE member_key;
+  				b = DISTINCT a;
+				c = FOREACH With_Electro_Procedure_Column_Distinct GENERATE dos_from;
+  				d = DISTINCT c;
+
+				generate FLATTEN(group) as (payer,provider_id,taxgroup,npi,spec_code,spec_desc),COUNT(Filter_Electro.claim_master_key) as Electro_ClaimLine
+				,COUNT(With_Electro_Procedure_Column_Distinct.claim_master_key) as Distinct_claims
+				,SUM(Filter_Electro.l_paid) as total_paid_ElectroDx,COUNT(Filter_Mod59.claim_master_key) as Mod59_Line, SUM(Filter_Mod59.l_paid) as Mod59_Paid
+				,COUNT(Filter_Mod25.claim_master_key) as Mod25_Line, SUM(Filter_Mod25.l_paid) as Mod25_Paid,COUNT(b.member_key) as patient_no,COUNT(d.dos_from) as unique_DOS;
+
+			};
+			
+
+	Pro11 = GROUP DateRange by (payer,provider_id,taxgroup,npi,spec_code,spec_desc);
+	Pro12 = Foreach Pro11 generate FLATTEN(group) as (payer,provider_id,taxgroup,npi,spec_code,spec_desc)
+		,COUNT(DateRange.claim_master_key) as Total_ClaimLine;
+	
+
+	Join1 = JOIN Pro2 by (payer,provider_id,taxgroup,npi,spec_code,spec_desc),Pro12 by (payer,provider_id,taxgroup,npi,spec_code,spec_desc);
+	
+	Electro_Procedure_ICD354 = Filter Electro_Procedure by 
+				((diag_1 Is Not Null AND diag_1 !='354.0')
+				OR (diag_2 Is Not Null AND diag_2 !='354.0')
+				OR (diag_3 Is Not Null AND diag_3 !='354.0')
+				OR (diag_4 Is Not Null AND diag_4 !='354.0')
+				OR (diag_5 Is Not Null AND diag_5 !='354.0')
+				OR (diag_6 Is Not Null AND diag_6 !='354.0')
+				OR (diag_7 Is Not Null AND diag_7 !='354.0')
+				OR (diag_8 Is Not Null AND diag_8 !='354.0')
+				OR (diag_9 Is Not Null AND diag_9 !='354.0')
+				OR (diag_10 Is Not Null AND diag_10 !='354.0')
+				OR (diag_11 Is Not Null AND diag_11 !='354.0')
+				OR (diag_12 Is Not Null AND diag_12 !='354.0'));
+				
+	Pro21 = GROUP Electro_Procedure_ICD354 by (payer,provider_id,taxgroup,npi,spec_code,spec_desc);
+	Pro22 = Foreach Pro21
+			{
+				NCD = Filter Electro_Procedure_ICD354 by cpt MATCHES '(95873)|(9590[5789])|(9591[0-3])|(9593[37])|(95999)|(G0255)';
+					generate FLATTEN(group) as (payer,provider_id,taxgroup,npi,spec_code,spec_desc)
+					,COUNT(Electro_Procedure_ICD354.claim_master_key) as Total_ClaimLine_ICD354
+					,COUNT(NCD.claim_master_key) as Total_ClaimLine_ICD354_NCD;
+			};
+
+	Join2 = JOIN Pro22 by (payer,provider_id,taxgroup,npi,spec_code,spec_desc),Join1 by (Pro2::payer,Pro2::provider_id,Pro2::taxgroup,Pro2::npi,Pro2::spec_code,Pro2::spec_desc);
+	FinalReport1 = Foreach Join2 generate Pro22::payer as payer,Pro22::provider_id as provider_id,Pro22::taxgroup as taxgroup,Pro22::npi as npi,Pro22::spec_code as spec_code,Pro22::spec_desc as spec_desc
+							,(double)Join1::Pro12::Total_ClaimLine as total_claim
+							,(double)Join1::Pro2::Electro_ClaimLine as Electro_Claim
+							,(double)Join1::Pro2::Distinct_claims as Distinct_claims
+							,Join1::Pro2::total_paid_ElectroDx as total_paid_EletroDx
+							,(double)Pro22::Total_ClaimLine_ICD354 as Claim_WithoutICD354
+							,(double)Pro22::Total_ClaimLine_ICD354_NCD as Claim_ICD354_NCD
+							,(double)Pro2::patient_no as unique_patient
+							,(double)Pro2::unique_DOS as unique_DOS
+							,(double)Pro2::Mod59_Line as Mod59_Line
+							,Pro2::Mod59_Paid as mod59_Paid
+							,(double)Pro2::Mod25_Line as Mod25_Line
+							,Pro2::Mod25_Paid as mod25_Paid;
+
+							
+
+	FinalReport2 = Foreach FinalReport1 Generate payer,provider_id,taxgroup,npi,spec_code,spec_desc
+							,total_claim
+							,Electro_Claim
+							,Electro_Claim/total_claim as ElectroPercent
+							,total_paid_EletroDx
+							,Claim_WithoutICD354
+							,Claim_ICD354_NCD
+							,Claim_ICD354_NCD/Claim_WithoutICD354  as PercentNCD
+							,unique_patient
+							,unique_patient/unique_DOS as PatientPerDay
+
+							,Mod59_Line
+							,mod59_Paid
+							,Mod59_Line/Electro_Claim as Mod59_Percent
+
+							,Mod25_Line
+							,mod25_Paid
+							,Mod25_Line/Distinct_claims as Mod25_Percent;
+
+
+	rmf /user/sjain/ElectroDiag;
+	STORE  FinalReport2 into '/user/sjain/ElectroDiag' using PigStorage('|','-schema');
+	-- hadoop fs -getmerge /user/sjain/ElectroDiag  ElectroDiag.txt
+
+*/
+
+/*
+--two dimension analysis specialty wise.
+	Spec1 = GROUP Electro_Procedure by (payer,spec_code,spec_desc);
+	Spec2 = Foreach Spec1
+		{
+  			a = FOREACH Electro_Procedure GENERATE provider_id;
+  			b = DISTINCT a;
+ 					generate FLATTEN(group) as (payer,spec_code,spec_desc),COUNT(b.provider_id) as provider_no,
+					 SUM(Electro_Procedure.l_paid) as total_paid,COUNT(Electro_Procedure.claim_id) as total_claimlines;
+		};
+
+	SpecAll = GROUP Spec2 by payer;
+	SpecAll1 =Foreach SpecAll generate FLATTEN(group) as payer,SUM(Spec2.provider_no) as All_provider_no,
+				SUM(Spec2.total_paid) as All_paid,SUM(Spec2.total_claimlines)as All_claimlines,SUM(Spec2.total_claimlines)as All_lines;
+		
+
+	SpecAll2 = Foreach SpecAll1 generate  payer,'All Spec' as spec_code,'Desc' as spec_desc,All_provider_no,All_paid,All_claimlines,(double)' ' as percent;
+	SpecAll3 =  Foreach SpecAll2 generate payer,All_claimlines;
+	SpecJoin = JOIN Spec2 by payer,SpecAll3 by payer USING 'replicated';
+	SpecJoin2 = Foreach SpecJoin generate Spec2::payer,Spec2::spec_code,Spec2::spec_desc,Spec2::provider_no,Spec2::total_paid
+			,(double)Spec2::total_claimlines as TOTAL,(double)SpecAll3::All_claimlines as GrandTotal ;
+
+	SpecJoin3 = Foreach SpecJoin2 generate ..$5,($5/$6) as percentage;
+
+	SpecFinal = UNION SpecJoin3,SpecAll2;
+
+
+	rmf /user/sjain/analytics/ElectroSpec2;
+	STORE  SpecFinal into '/user/sjain/analytics/ElectroSpec2' using PigStorage('|','-schema');
+	-- hadoop fs -getmerge /user/sjain/analytics/ElectroSpec2  ElectroSpec2.txt
+
+*/
+
+
